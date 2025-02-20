@@ -560,6 +560,8 @@ MonoBehaviour:
   flyDownSpeed: 20
   moveSpeed: 7
   stopDistance: 2
+  isMoving: 0
+  movementDirection: 0
 --- !u!54 &1698775499
 Rigidbody:
   m_ObjectHideFlags: 0

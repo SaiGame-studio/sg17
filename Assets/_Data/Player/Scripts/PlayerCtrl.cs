@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerCtrl : SaiBehaviour
 {
     [SerializeField] protected Transform model;
+    public Transform Model => model;
+
     [SerializeField] protected Animator animator;
     public Animator Animator => animator;
 

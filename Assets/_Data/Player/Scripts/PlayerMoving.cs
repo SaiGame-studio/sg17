@@ -9,6 +9,7 @@ public class PlayerMoving : PlayerAbstract
     [SerializeField] protected float moveSpeed = 7f;
     [SerializeField] protected float stopDistance = 2f;
     [SerializeField] protected bool isMoving = false;
+    [SerializeField] protected int movementDirection = 0;
 
     protected virtual void Update()
     {
@@ -26,6 +27,7 @@ public class PlayerMoving : PlayerAbstract
         this.GoToMousePosition();
     }
 
+
     protected virtual void GoToMousePosition()
     {
         Vector2 mouseWorldPosition = InputManager.Instance.MouseWorldPosition;
@@ -40,7 +42,23 @@ public class PlayerMoving : PlayerAbstract
         }
 
         isMoving = !Mathf.Approximately(previousX, playerPosition.x);
+
+        if (isMoving)
+        {
+            movementDirection = playerPosition.x > previousX ? 1 : -1;
+            Vector3 localScale = this.ctrl.Model.localScale;
+            float x = Mathf.Abs(localScale.x);
+            localScale.x = x * movementDirection;
+            this.ctrl.Model.localScale = localScale;
+        }
+        else
+        {
+            movementDirection = 0;
+        }
+
+        this.ctrl.Animator.SetBool("IsMoving", this.isMoving);
     }
+
 
     protected virtual void FlyingDown()
     {
